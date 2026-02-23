@@ -16,6 +16,14 @@
             ? (Integer) request.getAttribute("totalDonaciones") : 0;
     Integer totalEntregas = request.getAttribute("totalEntregas") != null
             ? (Integer) request.getAttribute("totalEntregas") : 0;
+    String ordenCampania = request.getAttribute("ordenCampania") != null
+            ? String.valueOf(request.getAttribute("ordenCampania")) : "Mayor recaudado";
+    String ordenComunidad = request.getAttribute("ordenComunidad") != null
+            ? String.valueOf(request.getAttribute("ordenComunidad")) : "Mayor monto recibido";
+    String fechaReporte = request.getAttribute("fechaReporte") != null
+            ? String.valueOf(request.getAttribute("fechaReporte")) : "";
+    String horaReporte = request.getAttribute("horaReporte") != null
+            ? String.valueOf(request.getAttribute("horaReporte")) : "";
 
     List<Object[]> porCampania = (List<Object[]>) request.getAttribute("porCampania");
     List<Object[]> porComunidad = (List<Object[]>) request.getAttribute("porComunidad");
@@ -54,6 +62,8 @@
             <div>
                 <h1>Gestion Financiera</h1>
                 <p class="muted">Control del dinero recaudado, entregado y disponible</p>
+                <p class="muted">Orden campanias: <strong><%= ordenCampania %></strong> | Orden comunidades: <strong><%= ordenComunidad %></strong></p>
+                <p class="muted">Fecha reporte: <strong><%= fechaReporte %></strong> | Hora reporte: <strong><%= horaReporte %></strong></p>
             </div>
         </div>
 
@@ -82,6 +92,7 @@
                     <table class="table-fin">
                         <thead>
                         <tr>
+                            <th>Orden</th>
                             <th>Campania</th>
                             <th>Meta</th>
                             <th>Recaudado</th>
@@ -93,6 +104,7 @@
                         <tbody>
                         <%
                             if (porCampania != null && !porCampania.isEmpty()) {
+                                int orden = 1;
                                 for (Object[] row : porCampania) {
                                     String nombre = row[1] != null ? String.valueOf(row[1]) : "";
                                     BigDecimal meta = row[2] != null ? new BigDecimal(String.valueOf(row[2])) : BigDecimal.ZERO;
@@ -108,6 +120,7 @@
                                     }
                         %>
                         <tr>
+                            <td><%= orden %></td>
                             <td><%= nombre %></td>
                             <td>S/ <%= String.format("%,.2f", meta) %></td>
                             <td>S/ <%= String.format("%,.2f", recaudado) %></td>
@@ -118,11 +131,12 @@
                             </td>
                         </tr>
                         <%
+                                    orden++;
                                 }
                             } else {
                         %>
                         <tr>
-                            <td colspan="6" class="muted">No hay datos de campanias.</td>
+                            <td colspan="7" class="muted">No hay datos de campanias.</td>
                         </tr>
                         <%
                             }
@@ -138,6 +152,7 @@
                     <table class="table-fin">
                         <thead>
                         <tr>
+                            <th>Orden</th>
                             <th>Comunidad</th>
                             <th>Beneficiarios</th>
                             <th>Entregas</th>
@@ -148,6 +163,7 @@
                         <tbody>
                         <%
                             if (porComunidad != null && !porComunidad.isEmpty()) {
+                                int orden = 1;
                                 for (Object[] row : porComunidad) {
                                     String nombre = row[1] != null ? String.valueOf(row[1]) : "";
                                     int beneficiarios = row[2] != null ? Integer.parseInt(String.valueOf(row[2])) : 0;
@@ -156,6 +172,7 @@
                                     BigDecimal monto = row[5] != null ? new BigDecimal(String.valueOf(row[5])) : BigDecimal.ZERO;
                         %>
                         <tr>
+                            <td><%= orden %></td>
                             <td><%= nombre %></td>
                             <td><%= beneficiarios %></td>
                             <td><%= entregas %></td>
@@ -163,11 +180,12 @@
                             <td>S/ <%= String.format("%,.2f", monto) %></td>
                         </tr>
                         <%
+                                    orden++;
                                 }
                             } else {
                         %>
                         <tr>
-                            <td colspan="5" class="muted">No hay datos de comunidades.</td>
+                            <td colspan="6" class="muted">No hay datos de comunidades.</td>
                         </tr>
                         <%
                             }

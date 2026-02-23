@@ -3,6 +3,9 @@ package com.donaciones.controller;
 import com.donaciones.dao.FinanzasDAO;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -60,6 +63,10 @@ public class FinanzasServlet extends HttpServlet {
         request.setAttribute("totalEntregas", totalEntregas);
         request.setAttribute("porCampania", porCampania);
         request.setAttribute("porComunidad", porComunidad);
+        request.setAttribute("ordenCampania", "Mayor recaudado");
+        request.setAttribute("ordenComunidad", "Mayor monto recibido");
+        request.setAttribute("fechaReporte", LocalDate.now().toString());
+        request.setAttribute("horaReporte", LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         request.getRequestDispatcher("/views/finanzas/index.jsp").forward(request, response);
     }
