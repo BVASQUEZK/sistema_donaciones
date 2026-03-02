@@ -23,9 +23,8 @@
     <section class="card">
         <h3 th:text="${showRegistro} ? 'Registro' : 'Iniciar Sesion'">Iniciar Sesion</h3>
         <p class="muted" th:text="${showRegistro} ? 'Crea tu cuenta de persona o institucion' : 'Ingresa tus credenciales para acceder'">Ingresa tus credenciales para acceder</p>
-        <div class="row-actions" style="margin-top:8px;">
-            <a class="btn-mini btn-edit" th:href="@{/login}" th:classappend="${!showRegistro} ? ' current' : ''">Iniciar Sesion</a>
-            <a class="btn-mini btn-edit" th:href="@{/login(registro=1)}" th:classappend="${showRegistro} ? ' current' : ''">Registrarme</a>
+        <div class="row-actions" style="margin-top:8px;" th:if="${showRegistro}">
+            <a class="btn-mini btn-edit" th:href="@{/login}">Volver a Iniciar Sesion</a>
         </div>
 
         <p th:if="${flashMessage}" class="flash" th:classappend="${flashError} ? ' flash-error' : ' flash-ok'" th:text="${flashMessage}"></p>
@@ -38,6 +37,9 @@
             <label>Contrasena</label>
             <input type="password" name="password" required>
             <button type="submit">Iniciar Sesion</button>
+            <div class="row-actions" style="margin-top:10px;">
+                <a class="btn-mini btn-edit" th:href="@{/login(registro=1)}">Registrarme</a>
+            </div>
         </form>
 
         <form th:if="${showRegistro}" method="post" th:action="@{/registro}" class="form-grid" style="margin-top:10px;">
