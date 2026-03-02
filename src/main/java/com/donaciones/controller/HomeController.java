@@ -61,7 +61,7 @@ public class HomeController {
                     dashboardData.donacionesRecientes = dashboardDAO.donacionesRecientesPorDonante(idDonante);
                 }
             } else if (comunidadView) {
-                ComunidadVulnerable comunidadActual = comunidadDAO.buscarPorNombreExacto(usuarioNombre);
+                ComunidadVulnerable comunidadActual = comunidadDAO.resolverPerfilPorNombreSesion(usuarioNombre);
                 if (comunidadActual != null && comunidadActual.getIdComunidad() != null) {
                     dashboardData.idComunidadActual = comunidadActual.getIdComunidad();
                     dashboardData.comunidadNombre = safe(comunidadActual.getNombre());

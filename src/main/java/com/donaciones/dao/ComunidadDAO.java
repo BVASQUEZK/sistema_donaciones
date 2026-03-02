@@ -232,6 +232,45 @@ public class ComunidadDAO {
         }
     }
 
+    public ComunidadVulnerable resolverPerfilPorNombreSesion(String nombreSesion) {
+        String filter = safe(nombreSesion).trim();
+        ComunidadVulnerable exacta = buscarPorNombreExacto(filter);
+        if (exacta != null) {
+            return exacta;
+        }
+
+        EntityManager em = JPAUtil.getInstance().getEntityManager();
+        try {
+            if (!filter.isEmpty() && !"comunidad".equalsIgnoreCase(filter)) {
+                @SuppressWarnings("unchecked")
+                List<ComunidadVulnerable> aproximadas = em.createNativeQuery(
+                                "SELECT * FROM comunidad_vulnerable " +
+                                        "WHERE activo = 1 AND LOWER(nombre) LIKE CONCAT('%', LOWER(?), '%') " +
+                                        "ORDER BY CASE WHEN LOWER(nombre) LIKE CONCAT(LOWER(?), '%') THEN 0 ELSE 1 END, " +
+                                        "id_comunidad ASC " +
+                                        "LIMIT 1",
+                                ComunidadVulnerable.class
+                        )
+                        .setParameter(1, filter)
+                        .setParameter(2, filter)
+                        .getResultList();
+                if (!aproximadas.isEmpty()) {
+                    return aproximadas.get(0);
+                }
+            }
+
+            @SuppressWarnings("unchecked")
+            List<ComunidadVulnerable> primeraActiva = em.createNativeQuery(
+                            "SELECT * FROM comunidad_vulnerable WHERE activo = 1 ORDER BY id_comunidad ASC LIMIT 1",
+                            ComunidadVulnerable.class
+                    )
+                    .getResultList();
+            return primeraActiva.isEmpty() ? null : primeraActiva.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
     public List<Object[]> listarReporteRecepciones(Integer idComunidad) {
         if (idComunidad == null) {
             return new ArrayList<Object[]>();

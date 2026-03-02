@@ -52,7 +52,7 @@ public class PerfilReportesController {
         }
 
         if (isComunidadRole(rol)) {
-            ComunidadVulnerable comunidad = comunidadDAO.buscarPorNombreExacto(
+            ComunidadVulnerable comunidad = comunidadDAO.resolverPerfilPorNombreSesion(
                     getSessionString(request, "usuarioNombre")
             );
             List<ComunidadResponsable> responsables = comunidad != null && comunidad.getIdComunidad() != null
@@ -139,7 +139,7 @@ public class PerfilReportesController {
         }
 
         if (isComunidadRole(rol)) {
-            ComunidadVulnerable comunidad = comunidadDAO.buscarPorNombreExacto(
+            ComunidadVulnerable comunidad = comunidadDAO.resolverPerfilPorNombreSesion(
                     getSessionString(request, "usuarioNombre")
             );
             if (comunidad == null || comunidad.getIdComunidad() == null) {
