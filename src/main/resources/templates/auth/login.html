@@ -37,9 +37,7 @@
             <label>Contrasena</label>
             <input type="password" name="password" required>
             <button type="submit">Iniciar Sesion</button>
-            <div class="row-actions" style="margin-top:10px;">
-                <a class="btn-mini btn-edit" th:href="@{/login(registro=1)}">Registrarme</a>
-            </div>
+            <a class="auth-switch-btn" th:href="@{/login(registro=1)}">Registrarme</a>
         </form>
 
         <form th:if="${showRegistro}" method="post" th:action="@{/registro}" class="form-grid" style="margin-top:10px;">

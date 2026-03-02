@@ -45,6 +45,22 @@ input { width: 100%; padding: 11px; margin-top: 6px; border: 1px solid #d0d9cf; 
 select, textarea { width: 100%; padding: 11px; margin-top: 6px; border: 1px solid #d0d9cf; border-radius: 8px; background: #fff; }
 button { margin-top: 16px; width: 100%; padding: 12px; border: 0; border-radius: 8px; background: var(--primary); color: #fff; font-weight: 700; cursor: pointer; transition: background .15s ease; }
 button:hover { background: var(--primary-dark); }
+.auth-switch-btn {
+    display: block;
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #c8d7c9;
+    border-radius: 8px;
+    background: #f7fbf7;
+    color: #1f4f25;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+}
+.auth-switch-btn:hover {
+    background: #edf6ee;
+}
 .error { color: #9c1010; font-weight: 600; margin-top: 10px; }
 .divider { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; }
 .flash {
